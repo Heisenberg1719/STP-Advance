@@ -30,7 +30,7 @@ class Database_config:
 class PathConfig:
     """Class to manage allowed and excluded paths."""
     excluded_paths = ['/', '/user/login', '/user/logout', '/admin/login', '/admin/logout', '/tokenRefresh', '/CallBack']
-    allowed_paths = ['/', '/user/login', '/admin/admin_login', '/CallBack']
+    allowed_paths = ['/', '/user/login', '/admin/admin_login', '/CallBack','/user/logout','/admin/logout']
 
 class DevelopmentConfig(Config):
     DEBUG = True
