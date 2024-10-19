@@ -7,7 +7,7 @@ from app.Blueprints.user import user_blueprint
 from app.Blueprints.admin import admin_blueprint
 from logging.handlers import RotatingFileHandler
 from app.Blueprints.public import public_blueprint
-from app.middleware.auth import jwt_required_middleware
+from app.middleware.auth import Before_Request_middleware,After_Request_middleware
 
 def create_app(config_class):
     app = Flask(__name__, instance_relative_config=True)
@@ -20,9 +20,11 @@ def create_app(config_class):
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(public_blueprint)
-    app.before_request(jwt_required_middleware)
+    app.before_request(Before_Request_middleware)
+    @app.after_request
+    def apply_access_token(response):
+        return After_Request_middleware(response)
     setup_logging(app)
-
     @app.errorhandler(Exception) # Log errors and critical issues only
     def handle_exception(e):
         app.logger.error(f"Error occurred: {str(e)}", exc_info=True)

@@ -1,4 +1,4 @@
-import uuid
+import uuid, os
 from datetime import timedelta
 
 class Config:
@@ -19,6 +19,18 @@ class Config:
     JWT_ACCESS_CSRF_TOKEN_EXPIRES = timedelta(minutes=5)    # Expiration for CSRF tokens matching access token lifetime
     JWT_REFRESH_CSRF_TOKEN_EXPIRES = timedelta(minutes=15)  # Expiration for CSRF tokens matching refresh token lifetime
 
+class Database_config:
+    db_config = {
+    "host": os.getenv('DB_HOST') if os.getenv('DB_HOST') else "sotruepay-do-user-17718491-0.m.db.ondigitalocean.com",
+    "user": os.getenv('DB_USER') if os.getenv('DB_USER') else "doadmin",
+    "password": os.getenv('DB_PASSWORD') if os.getenv('DB_PASSWORD') else "AVNS_CYyYGjtzj0JkrSG_010",
+    "port": int(os.getenv('DB_PORT')) if os.getenv('DB_PORT') else 25060,
+    "database": os.getenv('DB_NAME') if os.getenv('DB_NAME') else "STP_Advance"}
+
+class PathConfig:
+    """Class to manage allowed and excluded paths."""
+    excluded_paths = ['/', '/user/login', '/user/logout', '/admin/login', '/admin/logout', '/tokenRefresh', '/CallBack']
+    allowed_paths = ['/', '/user/login', '/admin/admin_login', '/CallBack']
 
 class DevelopmentConfig(Config):
     DEBUG = True
