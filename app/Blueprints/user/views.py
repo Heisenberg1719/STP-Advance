@@ -18,10 +18,10 @@ class UserRoutes:
     @user_blueprint.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'GET':
-            if request.args.get('phone_number'):
-                msg, code = backend.fetch_user(request.args.get('phone_number'))
-                return jsonify(msg), code
-            else:return jsonify({"Message": "Phone number not found"}), HTTPStatus.NOT_FOUND
+          if request.args.get('phone_number'):
+            msg, code = backend.fetch_user(request.args.get('phone_number'))
+            return jsonify(msg), code
+          else:return jsonify({"Message": "Phone number not found"}), HTTPStatus.NOT_FOUND
 
         elif request.method == 'POST':
           if request.json.get('username') and request.json.get('password'):
@@ -43,8 +43,10 @@ class UserRoutes:
     @staticmethod
     @user_blueprint.route('/logout', methods=['GET'])
     @jwt_required()
-    def kill():
-      session.clear()
-      response = jsonify({"msg": "Logout successful"})
-      unset_jwt_cookies(response)
-      return response, HTTPStatus.OK
+    def logout():
+      try:
+        response = jsonify({"msg": "Logout successful"})
+        session.clear();unset_jwt_cookies(response)
+        return response, HTTPStatus.OK
+      except Exception as e:
+        return jsonify({"msg": "Logout failed", "error": str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR

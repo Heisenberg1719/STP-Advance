@@ -1,7 +1,8 @@
-from flask import jsonify
+from flask import jsonify,session
 from . import public_blueprint 
+from http import HTTPStatus
 from app.utils.services.get_info import get_system_details
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, set_access_cookies
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, set_access_cookies,unset_jwt_cookies
 
 @public_blueprint.route('/', methods=['GET'])
 def public_info():
