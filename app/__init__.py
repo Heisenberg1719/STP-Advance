@@ -12,7 +12,7 @@ def create_app(config_class):
     app.config.from_object(config_class)
     app.config.from_pyfile('config.py', silent=True)
     jwt = JWTManager(app) # Initialize extensions
-    Session(app);CORS(app, resources={r"/*": {"origins": "*"}},supports_credentials=True)
+    Session(app);CORS(app, origins=cors_origins, supports_credentials=True)
     
     # Register Blueprints
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
