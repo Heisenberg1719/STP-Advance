@@ -10,9 +10,9 @@ logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
     host = os.getenv('HOST', '0.0.0.0')
-    port = int(os.getenv('PORT', 8080))
+    port = int(os.getenv('PORT', 8080)) 
     debug_mode = os.getenv('DEBUG', 'False').lower() == 'true'
-    threads = int(os.getenv('THREADS', 4)) 
+    threads = int(os.getenv('THREADS', 4))
     logger.info(f"Starting server on {host}:{port} with {'debug' if debug_mode else 'production'} mode with Using {threads} threads.")
 
     try:
