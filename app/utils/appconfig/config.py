@@ -13,7 +13,7 @@ class Config:
     JWT_ACCESS_CSRF_COOKIE_HTTPONLY = True                  # HttpOnly flag for CSRF access token
     JWT_REFRESH_CSRF_COOKIE_HTTPONLY = True                 # HttpOnly flag for CSRF refresh token
     JWT_COOKIE_SECURE = True                                # Set to True to ensure cookies are only sent over HTTPS
-    JWT_COOKIE_SAMESITE = 'Strict'                          # Strict cookie policy for improved security
+    JWT_COOKIE_SAMESITE = 'lax'                             # Strict cookie policy for improved security
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=5)         # Short-lived access token for increased security
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(minutes=15)       # Short-lived refresh token for increased security
     JWT_ACCESS_CSRF_TOKEN_EXPIRES = timedelta(minutes=5)    # Expiration for CSRF tokens matching access token lifetime

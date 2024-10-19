@@ -23,7 +23,6 @@ def create_app(config_class):
     @app.after_request
     def apply_access_token(response):
         return After_Request_middleware(response)
-    
 
     @app.errorhandler(Exception) # Log errors and critical issues only
     def handle_exception(e):

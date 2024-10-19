@@ -29,3 +29,44 @@ Traceback (most recent call last):
   File "/home/codespace/.local/lib/python3.12/site-packages/jwt/api_jws.py", line 317, in _verify_signature
     raise InvalidSignatureError("Signature verification failed")
 jwt.exceptions.InvalidSignatureError: Signature verification failed
+2024-10-19 10:01:54,000 WARNING: Unauthorized role access attempt by 'admin_user'. Path: /user/logout [in /workspaces/STP-Advance/app/middleware/auth.py:16]
+2024-10-19 10:03:00,868 ERROR: Error during token verification: Missing cookie "access_token_cookie" [in /workspaces/STP-Advance/app/middleware/auth.py:22]
+Traceback (most recent call last):
+  File "/workspaces/STP-Advance/app/middleware/auth.py", line 11, in Before_Request_middleware
+    verify_jwt_in_request()
+  File "/home/codespace/.local/lib/python3.12/site-packages/flask_jwt_extended/view_decorators.py", line 94, in verify_jwt_in_request
+    jwt_data, jwt_header, jwt_location = _decode_jwt_from_request(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/flask_jwt_extended/view_decorators.py", line 358, in _decode_jwt_from_request
+    raise NoAuthorizationError(errors[0])
+flask_jwt_extended.exceptions.NoAuthorizationError: Missing cookie "access_token_cookie"
+2024-10-19 10:16:50,952 ERROR: Error during token verification: Missing cookie "access_token_cookie" [in /workspaces/STP-Advance/app/middleware/auth.py:22]
+Traceback (most recent call last):
+  File "/workspaces/STP-Advance/app/middleware/auth.py", line 11, in Before_Request_middleware
+    verify_jwt_in_request()
+  File "/home/codespace/.local/lib/python3.12/site-packages/flask_jwt_extended/view_decorators.py", line 94, in verify_jwt_in_request
+    jwt_data, jwt_header, jwt_location = _decode_jwt_from_request(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/flask_jwt_extended/view_decorators.py", line 358, in _decode_jwt_from_request
+    raise NoAuthorizationError(errors[0])
+flask_jwt_extended.exceptions.NoAuthorizationError: Missing cookie "access_token_cookie"
+2024-10-19 10:16:51,166 ERROR: Error during token verification: Missing cookie "access_token_cookie" [in /workspaces/STP-Advance/app/middleware/auth.py:22]
+Traceback (most recent call last):
+  File "/workspaces/STP-Advance/app/middleware/auth.py", line 11, in Before_Request_middleware
+    verify_jwt_in_request()
+  File "/home/codespace/.local/lib/python3.12/site-packages/flask_jwt_extended/view_decorators.py", line 94, in verify_jwt_in_request
+    jwt_data, jwt_header, jwt_location = _decode_jwt_from_request(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/flask_jwt_extended/view_decorators.py", line 358, in _decode_jwt_from_request
+    raise NoAuthorizationError(errors[0])
+flask_jwt_extended.exceptions.NoAuthorizationError: Missing cookie "access_token_cookie"
+2024-10-19 10:17:02,932 ERROR: Error during token verification: Missing cookie "access_token_cookie" [in /workspaces/STP-Advance/app/middleware/auth.py:22]
+Traceback (most recent call last):
+  File "/workspaces/STP-Advance/app/middleware/auth.py", line 11, in Before_Request_middleware
+    verify_jwt_in_request()
+  File "/home/codespace/.local/lib/python3.12/site-packages/flask_jwt_extended/view_decorators.py", line 94, in verify_jwt_in_request
+    jwt_data, jwt_header, jwt_location = _decode_jwt_from_request(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/flask_jwt_extended/view_decorators.py", line 358, in _decode_jwt_from_request
+    raise NoAuthorizationError(errors[0])
+flask_jwt_extended.exceptions.NoAuthorizationError: Missing cookie "access_token_cookie"

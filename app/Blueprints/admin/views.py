@@ -13,7 +13,6 @@ class AdminRoutes:
     @admin_blueprint.route('/profile', methods=['GET'])
     @jwt_required()
     def admin_dashboard():
-      logging.INFO("This is to test")
       return jsonify({"msg": "Welcome to the admin dashboard!"}), 200
 
     @staticmethod
