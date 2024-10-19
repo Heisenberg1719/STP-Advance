@@ -34,10 +34,10 @@ COPY . .
 EXPOSE 8080
 
 # Set environment variables (can be overridden at runtime)
-ENV HOST = 0.0.0.0
-ENV PORT = 8080
-ENV DEBUG = False
-ENV THREADS = 5  
+ENV HOST=0.0.0.0
+ENV PORT=8080
+ENV DEBUG=False
+ENV THREADS=5
 
 # # Set environment variables for the DB configuration (can be overridden at runtime)
 # ENV DB_HOST=fintech.chuu2oaa26rh.ap-south-1.rds.amazonaws.com
