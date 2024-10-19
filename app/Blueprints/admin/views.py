@@ -5,7 +5,7 @@ from app.logic.backend import backend
 from flask import jsonify, request, session
 from flask_jwt_extended import (
 jwt_required, create_access_token, create_refresh_token,
-set_access_cookies, set_refresh_cookies, get_csrf_token)
+set_access_cookies, set_refresh_cookies, get_csrf_token,unset_jwt_cookies)
 
 class AdminRoutes:
     @staticmethod
@@ -28,7 +28,7 @@ class AdminRoutes:
                 msg, code = backend.authenticate(request.json.get('username'), request.json.get('password'), "admin")
                 if code == HTTPStatus.OK:  # Clear the session if the same admin is already logged in
                     if session.get('admin_info') and session['admin_info'].get('username') == request.json.get('username'):
-                        session.pop('admin_info', None) 
+                        session.clear()
                     session['admin_info'] = { # Set the new session for the admin
                         'username': request.json.get('username'), 
                         'logged_in': True,'role': 'admin',
@@ -45,10 +45,10 @@ class AdminRoutes:
             else:return jsonify({"ErrorMessage": "Username or password not provided"}), HTTPStatus.BAD_REQUEST
 
     @staticmethod
-    @admin_blueprint.route('/logout', methods=['POST'])
+    @admin_blueprint.route('/logout', methods=['GET'])
     @jwt_required()
-    def admin_logout():
-        session.pop('admin_info', None);response = jsonify({"msg": "Admin logged out successfully"})
-        cookies_to_clear = ['access_token_cookie', 'refresh_token_cookie', 'csrf_access_token', 'csrf_refresh_token']
-        for cookie in cookies_to_clear:response.set_cookie(cookie, '', expires=0, httponly=True, secure=True)
-        return response, 200
+    def kill():
+        session.clear()
+        response = jsonify({"msg": "Logout successful"})
+        unset_jwt_cookies(response)
+        return response, HTTPStatus.OK

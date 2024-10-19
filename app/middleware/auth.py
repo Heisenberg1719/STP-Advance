@@ -6,7 +6,7 @@ from flask import request, jsonify, g
 from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity, get_jwt, create_access_token,set_access_cookies
 
 def Before_Request_middleware():
-    if request.path not in PathConfig.allowed_paths:
+    if request.path not in PathConfig.before_paths:
         try:
             verify_jwt_in_request()
             current_user, claims = get_jwt_identity(), get_jwt()
@@ -25,7 +25,7 @@ def Before_Request_middleware():
 
 def After_Request_middleware(response):
     try:
-        if hasattr(g, 'new_access_token') and request.path not in PathConfig.excluded_paths:
+        if hasattr(g, 'new_access_token') and request.path not in PathConfig.after_paths:
             set_access_cookies(response, g.new_access_token)
     except Exception as e:
         logging.error(f"Error setting new JWT token in cookie: {str(e)}", exc_info=True)

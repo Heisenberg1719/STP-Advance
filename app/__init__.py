@@ -21,14 +21,22 @@ def create_app(config_class):
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(public_blueprint)
     app.before_request(Before_Request_middleware)
+    
     @app.after_request
     def apply_access_token(response):
         return After_Request_middleware(response)
+    
     setup_logging(app)
+    
     @app.errorhandler(Exception) # Log errors and critical issues only
     def handle_exception(e):
         app.logger.error(f"Error occurred: {str(e)}", exc_info=True)
         return jsonify({"msg": "An error occurred contact admin..."}), 500
+    
+    @app.errorhandler(404) # 404 Error handler for not found URLs
+    def page_not_found(e):
+        return jsonify({"msg": "URL End Point Not Found"}), 404
+
     return app
 
 def setup_logging(app):
