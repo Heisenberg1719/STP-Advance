@@ -9,6 +9,9 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends gcc libpq-dev curl tzdata nginx && \
     rm -rf /var/lib/apt/lists/*
 
+# Create the nginx user and group
+RUN adduser --system --no-create-home --group nginx
+
 # Set the timezone to IST (Asia/Kolkata)
 ENV TZ=Asia/Kolkata
 
