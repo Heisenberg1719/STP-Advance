@@ -17,9 +17,9 @@ class backend:
       return results.get('data', [{}])[0], (results.get('status') if isinstance(results.get('status'), list) else [results.get('status', HTTPStatus.INTERNAL_SERVER_ERROR)])[0]
     else:return {"Message": "User Not Found"},  HTTPStatus.NOT_FOUND
 
-def authenticate(username, password, role):
-    query = authenticate_admin_query if role == "admin" else authenticate_user_query
-    results = MySQLDatabase.fetch_results(query, (username,))
-    if results.get('data') and bcrypt.checkpw(password.encode('utf-8'), results['data'][0]['password'].encode('utf-8')):
-        return {"successMsg": "User authenticated successfully"}, HTTPStatus.OK
-    return {"errorMsg": "Invalid password"}, HTTPStatus.UNAUTHORIZED
+  def authenticate(username, password, role):
+      query = authenticate_admin_query if role == "admin" else authenticate_user_query
+      results = MySQLDatabase.fetch_results(query, (username,))
+      if results.get('data') and bcrypt.checkpw(password.encode('utf-8'), results['data'][0]['password'].encode('utf-8')):
+          return {"successMsg": "User authenticated successfully"}, HTTPStatus.OK
+      return {"errorMsg": "Invalid password"}, HTTPStatus.UNAUTHORIZED
