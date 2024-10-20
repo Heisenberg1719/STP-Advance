@@ -7,9 +7,11 @@ class Config:
     SESSION_PERMANENT = True
     JWT_SECRET_KEY =  str(uuid.uuid4())                     # JWT Configuration
     JWT_TOKEN_LOCATION = ['cookies']                        # Store JWT in cookies for increased security
-    # JWT_COOKIE_CSRF_PROTECT = True                        # Enable CSRF protection for JWT cookies
+    JWT_COOKIE_CSRF_PROTECT = True                          # Enable CSRF protection for JWT cookies
     JWT_ACCESS_COOKIE_HTTPONLY = True                       # HttpOnly flag to prevent XSS attacks
     JWT_REFRESH_COOKIE_HTTPONLY = True                      # HttpOnly flag for refresh tokens
+    JWT_ACCESS_CSRF_COOKIE_HTTPONLY = True                  # HttpOnly flag for CSRF access token
+    JWT_REFRESH_CSRF_COOKIE_HTTPONLY = True                 # HttpOnly flag for CSRF refresh token
     JWT_COOKIE_SECURE = True                                # Set to True to ensure cookies are only sent over HTTPS
     JWT_COOKIE_SAMESITE = 'None'                            # Strict cookie policy for improved security
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=5)         # Short-lived access token for increased security
