@@ -3,7 +3,7 @@ from http import HTTPStatus
 from datetime import timedelta
 from app.utils.appconfig.config import PathConfig
 from flask import request, jsonify, g  
-from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity, get_jwt, create_access_token,set_access_cookies
+from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity, get_jwt, create_access_token,set_access_cookies,set_csrf_cookie
 
 def Before_Request_middleware():
     if request.path not in PathConfig.before_paths:
@@ -27,6 +27,7 @@ def After_Request_middleware(response):
     try:
         if hasattr(g, 'new_access_token') and request.path not in PathConfig.after_paths:
             set_access_cookies(response, g.new_access_token)
+            set_csrf_cookie(response, g.new_access_token)
     except Exception as e:
         logging.error(f"Error setting new JWT token in cookie: {str(e)}", exc_info=True)
     return response

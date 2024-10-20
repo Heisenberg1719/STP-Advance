@@ -28,15 +28,12 @@ class UserRoutes:
             msg, code = backend.authenticate(request.json.get('username'), request.json.get('password'), "user")
             if code == HTTPStatus.OK:  # Clear the session if the same user is already logged in
               if session.get('user_info') and session['user_info'].get('username') == request.json.get('username'):
-                  session.clear()
+                  session.pop('user_info', None)
               session['user_info'] = {'username': request.json.get('username'),'logged_in': True,
               'role': 'user','login_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-
               access_token = create_access_token(identity=request.json.get('username'), additional_claims={"role": "user"})
               refresh_token = create_refresh_token(identity=request.json.get('username'));response = jsonify(msg)
               set_access_cookies(response, access_token);set_refresh_cookies(response, refresh_token)
-              response.set_cookie('csrf_access_token', get_csrf_token(access_token),secure=True)
-
               return response, code
             else:return jsonify(msg), code  
           else:return jsonify({"ErrorMessage": "Username or password not provided"}), HTTPStatus.BAD_REQUEST
@@ -47,7 +44,7 @@ class UserRoutes:
     def logout():
       try:
         response = jsonify({"msg": "Logout successful"})
-        session.clear();unset_jwt_cookies(response)
+        session.pop('user_info', None);unset_jwt_cookies(response)
         return response, HTTPStatus.OK
       except Exception as e:
         return jsonify({"msg": "Logout failed", "error": str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR

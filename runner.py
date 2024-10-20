@@ -7,7 +7,7 @@ from logging.handlers import RotatingFileHandler
 app = create_app(ProductionConfig)
 
 logging.basicConfig(level=logging.DEBUG,
-format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]',
+format='%(asctime)s %(levelname)s: %(message)s',
 handlers=[logging.FileHandler("app.log"),logging.StreamHandler()])
 
 if __name__ == '__main__':
