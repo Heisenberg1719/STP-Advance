@@ -35,8 +35,7 @@ class AdminRoutes:
             access_token = create_access_token(identity=request.json.get('username'), additional_claims={"role": "admin"})
             refresh_token = create_refresh_token(identity=request.json.get('username'));response = jsonify(msg)
             set_access_cookies(response, access_token);set_refresh_cookies(response, refresh_token)
-            response.set_cookie('csrf_access_token', get_csrf_token(access_token), httponly=True, secure=False)
-            response.set_cookie('csrf_refresh_token', get_csrf_token(refresh_token), httponly=True, secure=False)
+            response.set_cookie('csrf_access_token', get_csrf_token(access_token),secure=True)
             return response, code
           else:return jsonify(msg), code  
         else:return jsonify({"ErrorMessage": "Username or password not provided"}), HTTPStatus.BAD_REQUEST
